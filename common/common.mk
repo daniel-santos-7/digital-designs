@@ -24,7 +24,7 @@ $(WAVES_DIR)/$(VCD_FILE): $(WORK_DIR)/$(OUT_FILE) | $(WAVES_DIR)
 	@vvp $<
 	@mv *.vcd $@
 
-run: $(WAVES_DIR)/dump.vcd
+run: $(WAVES_DIR)/$(VCD_FILE)
 	@gtkwave $< &
 
 clean:
