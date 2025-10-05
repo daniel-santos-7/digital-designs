@@ -1,52 +1,49 @@
-# bit_sync
+# Bit Synchronizer (bit_sync)
 
-![Bit Synchronizer](img/bit_sync.png)
+<p align="center">
+  <img src="img/bit_sync.png" alt="Bit Synchronizer">
+</p>
 
 ## Description
 
-The `bit_sync` directory contains digital design implementations focused on bit signal synchronization. This project is particularly useful in systems that require signal integrity and stability across different clock domains.
+The `bit_sync` directory contains a **Verilog implementation of a bit synchronizer**.
 
-## Objective
-
-The main goal of this project is to provide efficient solutions for bit synchronization, addressing challenges such as:
-
-- **Metastability**: Minimizing the risk of indeterminate states in flip-flops.
-- **Cross-domain signaling**: Facilitating communication between different clock domains.
-- **Latency reduction**: Optimizing the propagation time of synchronized signals.
+It is designed to safely transfer single-bit signals across **different clock domains**, minimizing **metastability** and ensuring reliable signal integrity in digital systems.
 
 ## Directory Structure
 
-The `bit_sync` directory contains the following files and subdirectories:
-
-- `sync.v`: Main implementation of the bit synchronizer.
-- `sync_tb.v`: Testbench for validating the functionality of the synchronizer.
-- `README.md`: This file, providing an overview of the project.
-
-## How to Use
-
-To use the bit synchronizer in your project:
-
-1. **Module Inclusion**: Include the `sync.v` file in your Verilog project.
-2. **Instantiation**: Instantiate the `sync` module in your code, connecting inputs and outputs as needed.
-3. **Simulation**: Use the `sync_tb.v` testbench to verify the synchronizer’s behavior in different scenarios.
+```bash
+bit_sync/
+├── img/
+│ └── bit_sync.png   # Illustrative diagram of the synchronizer
+├── rtl/
+│ └── bit_sync.v     # Main bit synchronizer module
+├── tbs/
+│ └── bit_sync_tb.v  # Testbench for simulation
+├── Makefile         # Build and simulation commands
+└── README.md        # This file
+```
 
 ## Simulation
 
 To simulate the design:
 
-1. Use tools like ModelSim or Vivado to compile and simulate the Verilog files.
-2. Run the simulation of `sync_tb.v` to observe the synchronizer’s behavior.
-3. Analyze the generated waveforms to verify correct signal synchronization.
+The project uses a **Makefile** to compile, simulate, and view waveforms:
 
-## Contributions
+1. Make sure you have **Icarus Verilog** and **GTKWave** installed.  
+2. In this directory, run:
 
-Contributions are welcome! To contribute:
+```bash
+make
+```
 
-1. Fork this repository.
-2. Create a branch for your feature (`git checkout -b feature/new-feature`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature/new-feature`).
-5. Open a Pull Request.
+This will compile the RTL and testbench, simulate the design, and open the waveform viewer (GTKWave).
+
+To clean generated files, run:
+
+```bash
+make clean
+```
 
 ## License
 
