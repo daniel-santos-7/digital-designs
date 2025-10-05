@@ -1,8 +1,10 @@
 /*
+* ----------------------------------------------------------------
 * Module: Bit Synchronizer
-* Description: 
+* Description: Simple synchronizer for a single bit signal
 * Developed by: Daniel Santos
-* 2023
+* 2025
+* ----------------------------------------------------------------
 */
 
 module bit_sync (
