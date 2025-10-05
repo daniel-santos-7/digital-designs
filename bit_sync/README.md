@@ -1,6 +1,6 @@
 # bit_sync
 
-![Texto alternativo](bit_sync/img/bit_sync.png)
+![Bit Synchronizer](img/bit_sync.png)
 
 ## Description
 
