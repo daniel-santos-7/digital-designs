@@ -14,6 +14,12 @@ VCD_FILE ?= dump.vcd
 
 all: run
 
+run: $(WAVES_DIR)/$(VCD_FILE)
+	@gtkwave $< &
+
+clean:
+	@rm -rf $(WORK_DIR) $(WAVES_DIR)
+
 $(WORK_DIR) $(WAVES_DIR):
 	@mkdir -p $@
 
@@ -23,9 +29,3 @@ $(WORK_DIR)/$(OUT_FILE): $(RTL_SRC) $(TBS_SRC) | $(WORK_DIR)
 $(WAVES_DIR)/$(VCD_FILE): $(WORK_DIR)/$(OUT_FILE) | $(WAVES_DIR)
 	@vvp $<
 	@mv *.vcd $@
-
-run: $(WAVES_DIR)/$(VCD_FILE)
-	@gtkwave $< &
-
-clean:
-	@rm -rf $(WORK_DIR) $(WAVES_DIR)
