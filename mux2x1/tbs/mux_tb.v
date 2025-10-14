@@ -73,7 +73,8 @@ module mux_tb;
 		if (select == 1'b1) #1 in1 = value;
 	end
 	endtask
-
+	
+	// Changes selection
 	task set_sel(input select);
 	begin
 		@(posedge clk);
@@ -90,7 +91,7 @@ module mux_tb;
 	endtask
 	
 	// Compare the values
-	task check_output(input [WIDTH-1:0] sample, input [WIDTH-1:0] expected, inout errors);
+	task check_output(input [WIDTH-1:0] sample, input [WIDTH-1:0] expected, inout integer errors);
 	begin
 		if (sample == expected) begin
 			$display("✅ out = %h expected = %h", sample, expected);
@@ -102,16 +103,14 @@ module mux_tb;
 	endtask
 	
 	// Run simple test
-	task run_test(input [WIDTH-1:0] value0, input [WIDTH-1:0] value1, inout errors);
+	task run_test(input [WIDTH-1:0] value0, input [WIDTH-1:0] value1, inout integer errors);
 		reg [WIDTH-1:0] value;
 	begin
 		set_input(1'b0, value0);
 		set_input(1'b1, value1);
-		
 		set_sel(1'b0);
 		get_output(value);
 		check_output(value, value0, errors);
-		
 		set_sel(1'b1);
 		get_output(value);
 		check_output(value, value1, errors);
@@ -119,7 +118,7 @@ module mux_tb;
 	endtask
 	
 	// Run all tests
-	task run_all_tests(input integer n, inout errors);
+	task run_all_tests(input integer n, inout integer errors);
 		reg [WIDTH-1:0] value0, value1;
 	begin
 		repeat (n) begin
