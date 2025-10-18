@@ -9,7 +9,7 @@
 
 `timescale 1ns/1ns
 
-module mux_tb;
+module mux2x1_tb;
 	
 	// Testbench variables
 	integer errors;
@@ -37,15 +37,13 @@ module mux_tb;
 	always #10 clk = ~(clk);
 	
     initial begin
-		$dumpfile("mux_tb.vcd");
+		$dumpfile("mux2x1_tb.vcd");
         $dumpvars(0, uut);
 
 		$display("---------------------------");		
 		$display("Running testbench");
 		$display("---------------------------");
-
-		errors = 0;
-
+		
 		initialize();
 		run_all_tests(10, errors);
 
@@ -58,6 +56,7 @@ module mux_tb;
 	// Initializes the UUT signals
 	task initialize;
 	begin
+		errors = 0;
 		clk = 1'b0;
 		in0 = 8'h00;
 		in1 = 8'h00;
@@ -65,20 +64,14 @@ module mux_tb;
 	end
 	endtask
 	
-	// Changes the input value
-	task set_input(input select, input [WIDTH-1:0] value);
+	// Changes the input values
+	task set_input(input [WIDTH-1:0] value0, input [WIDTH-1:0] value1, input select);
 	begin
 		@(posedge clk);
-		if (select == 1'b0) #1 in0 = value;
-		if (select == 1'b1) #1 in1 = value;
-	end
-	endtask
-	
-	// Changes selection
-	task set_sel(input select);
-	begin
-		@(posedge clk);
-		#1 sel = select;
+		#1;
+		in0 = value0;
+		in1 = value1;
+		sel = select;
 	end
 	endtask
 
@@ -106,12 +99,10 @@ module mux_tb;
 	task run_test(input [WIDTH-1:0] value0, input [WIDTH-1:0] value1, inout integer errors);
 		reg [WIDTH-1:0] value;
 	begin
-		set_input(1'b0, value0);
-		set_input(1'b1, value1);
-		set_sel(1'b0);
+		set_input(value0, value1, 1'b0);
 		get_output(value);
 		check_output(value, value0, errors);
-		set_sel(1'b1);
+		set_input(value0, value1, 1'b1);
 		get_output(value);
 		check_output(value, value1, errors);
 	end
